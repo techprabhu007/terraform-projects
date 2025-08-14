@@ -9,20 +9,20 @@ resource "aws_internet_gateway" "igw" {
 }
 # 3. Create a Public Subnet
 resource "aws_subnet" "public" {
-  vpc_id     = aws_vpc.main.id
-  cidr_block = "10.0.1.0/24"
-  availability_zone = "us-west-2a"
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = "10.0.1.0/24"
+  availability_zone       = "us-west-2a"
   map_public_ip_on_launch = true # Key for a public subnet
 }
 # 4. Create a Private Subnet
 resource "aws_subnet" "private" {
-  vpc_id     = aws_vpc.main.id
-  cidr_block = "10.0.2.0/24"
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = "10.0.2.0/24"
   availability_zone = "us-west-2a"
 }
 # 5. Create an Elastic IP for the NAT Gateway
 resource "aws_eip" "nat_eip" {
-  domain = "vpc"
+  domain     = "vpc"
   depends_on = [aws_internet_gateway.igw]
 }
 # 6. Create the NAT Gateway itself in the PUBLIC subnet
